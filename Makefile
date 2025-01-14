@@ -1,0 +1,1 @@
+rustc -C debuginfo=1 -o output.s --emit asm -Cllvm-args=--x86-asm-syntax=intel --crate-type rlib --color=always example.rs
