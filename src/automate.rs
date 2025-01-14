@@ -6,20 +6,6 @@ pub struct Automate<'a> {
     accepteur: Vec<usize>,
     start: usize,
 }
-fn str_to_char_slice(s: &str) -> Result<&[char], &'static str> {
-    // Vérifie que tous les caractères sont des caractères ASCII
-    if s.bytes().all(|b| b.is_ascii()) {
-        // Conversion sécurisée
-        unsafe {
-            Ok(std::slice::from_raw_parts(
-                s.as_ptr() as *const char,
-                s.len(),
-            ))
-        }
-    } else {
-        Err("La chaîne contient des caractères non-ASCII")
-    }
-}
 
 impl<'a> Automate<'a> {
     fn new(n: usize, accepteur: Vec<usize>, start: usize) -> Self {
@@ -87,4 +73,13 @@ impl<'a> Automate<'a> {
     pub fn is_word_accepted(&self, word: &str) -> bool {
         return self.is_accepted(word.as_bytes(), self.start);
     }
+}
+
+#[test]
+fn test_path() {
+    let src = "4\n0\n3\n0;a;0\n0;b;0\n0;a;1\n1;b;2\n2;b;3";
+    let auto = Automate::from_file(src).expect("can't parse the automate");
+    let test = "abbbbaabbaaabbbaabb";
+    println!("{:?}", &auto);
+    assert!(auto.is_word_accepted(test))
 }
