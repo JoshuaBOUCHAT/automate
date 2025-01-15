@@ -6,7 +6,6 @@ pub struct Automate<'a> {
     accepteur: Vec<usize>,
     start: usize,
 }
-
 impl<'a> Automate<'a> {
     fn new(n: usize, accepteur: Vec<usize>, start: usize) -> Self {
         Self {
