@@ -73,3 +73,12 @@ impl<'a> Automate<'a> {
         return self.is_accepted(word.as_bytes(), self.start);
     }
 }
+
+#[test]
+fn test_path() {
+    let src = "4\n0\n3\n0;a;0\n0;b;0\n0;a;1\n1;b;2\n2;b;3";
+    let auto = Automate::from_file(src).expect("can't parse the automate");
+    let test = "abbbbaabbaaabbbaabb";
+    println!("{:?}", &auto);
+    assert!(auto.is_word_accepted(test))
+}
