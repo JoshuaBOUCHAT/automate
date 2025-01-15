@@ -6,21 +6,6 @@ pub struct Automate<'a> {
     accepteur: Vec<usize>,
     start: usize,
 }
-fn str_to_char_slice(s: &str) -> Result<&[char], &'static str> {
-    // Vérifie que tous les caractères sont des caractères ASCII
-    if s.bytes().all(|b| b.is_ascii()) {
-        // Conversion sécurisée
-        unsafe {
-            Ok(std::slice::from_raw_parts(
-                s.as_ptr() as *const char,
-                s.len(),
-            ))
-        }
-    } else {
-        Err("La chaîne contient des caractères non-ASCII")
-    }
-}
-
 impl<'a> Automate<'a> {
     fn new(n: usize, accepteur: Vec<usize>, start: usize) -> Self {
         Self {
